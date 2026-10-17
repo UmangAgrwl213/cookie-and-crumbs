@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Color primitives */
+  --espresso-900: #2A1B14;
+  --espresso-700: #4A3226;
+  --espresso-500: #6B4F3A;
+  --shortbread-100: #F3E8D6;
+  --shortbread-050: #FAF4EA;
+  --burnt-sugar-500: #B8823D;
+  --burnt-sugar-700: #8F631F;
+  --preserve-600: #7A2E3B;
+  --pistachio-400: #8B9A6E;
+  --error-600: #B3261E;
+  --linen-000: #FFFFFF;
+
+  /* Semantic colors */
+  --color-bg-page: var(--shortbread-100);
+  --color-bg-surface: var(--shortbread-050);
+  --color-bg-inverse: var(--espresso-900);
+  --color-text-primary: var(--espresso-900);
+  --color-text-secondary: var(--espresso-700);
+  --color-text-inverse: var(--shortbread-050);
+  --color-accent: var(--burnt-sugar-500);
+  --color-accent-hover: var(--burnt-sugar-700);
+  --color-danger: var(--error-600);
+  --color-success: var(--pistachio-400);
+  --color-border: color-mix(in srgb, var(--espresso-900) 12%, transparent);
+  --color-focus-ring: color-mix(in srgb, var(--burnt-sugar-500) 60%, transparent);
+
+  /* shadcn/ui compatibility */
+  --background: var(--shortbread-050);
+  --foreground: var(--espresso-900);
+  --primary: var(--burnt-sugar-500);
+  --primary-foreground: var(--linen-000);
+  --secondary: var(--shortbread-100);
+  --secondary-foreground: var(--espresso-900);
+  --muted: var(--shortbread-100);
+  --muted-foreground: var(--espresso-700);
+  --accent: var(--shortbread-100);
+  --accent-foreground: var(--espresso-900);
+  --destructive: var(--error-600);
+  --destructive-foreground: var(--linen-000);
+  --border: var(--color-border);
+  --input: var(--color-border);
+  --ring: var(--burnt-sugar-500);
+  --card: var(--shortbread-050);
+  --card-foreground: var(--espresso-900);
+  --popover: var(--shortbread-050);
+  --popover-foreground: var(--espresso-900);
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+}
+
+/* Motion */
+:root {
+  --duration-fast: 120ms;
+  --duration-base: 240ms;
+  --duration-slow: 480ms;
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;
+  }
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Utility classes */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .focus-ring {
+    @apply outline-none ring-2 ring-offset-2 ring-offset-background;
+    --ring: var(--color-focus-ring);
+  }
+  .focus-ring:focus-visible {
+    ring-color: var(--color-focus-ring);
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .container-tight {
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+  .product-tile {
+    @apply relative overflow-hidden rounded-none bg-transparent;
+  }
+  .floating-surface {
+    @apply rounded-xl border border-border bg-card shadow-lg;
+  }
+  .btn-luxury {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-semibold transition-all duration-200;
+    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    --ring: var(--color-focus-ring);
+  }
+  .btn-luxury:disabled {
+    @apply cursor-not-allowed opacity-50;
+  }
+  .skeleton {
+    @apply animate-shimmer bg-gradient-to-r from-transparent via-border to-transparent bg-[length:200%_100%];
+  }
+}
